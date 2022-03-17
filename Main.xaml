@@ -1,14 +1,14 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.메일트리거규칙파일="[Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments), &quot;UiPath&quot;)]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mg="clr-namespace:Microsoft.Graph;assembly=Microsoft.Graph" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uma="clr-namespace:UiPath.MicrosoftOffice365.Activities;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umam="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umm="clr-namespace:UiPath.MicrosoftOffice365.Models;assembly=UiPath.MicrosoftOffice365" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.메일트리거규칙파일="[Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments), &quot;UiPath&quot;)]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:um="clr-namespace:UiPath.Mail;assembly=UiPath.Mail.Activities" xmlns:umab="clr-namespace:UiPath.Mail.Activities.Business;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="메일트리거규칙파일" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1394,3559</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1394,4452</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="45">
+    <scg:List x:TypeArguments="x:String" Capacity="49">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -54,6 +54,10 @@
       <x:String>UiPath.Shared.Activities.Business</x:String>
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.Mail.Activities.Business</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.Mail.Activities.Business.ForEachMail</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -86,16 +90,16 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.MicrosoftOffice365.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1026,3494" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap:VirtualizedContainerService.HintSize="982,4387" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="file_ok" />
       <Variable x:TypeArguments="sd:DataTable" Name="mail_rule_dt" />
@@ -105,8 +109,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:FileExistsX DisplayName="File Exists" Exists="[file_ok]" sap:VirtualizedContainerService.HintSize="984,134" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[Path.Combine(메일트리거규칙파일, &quot;mail_trigger.xlsx&quot;)]" />
-    <If Condition="[Not file_ok]" sap:VirtualizedContainerService.HintSize="984,629" sap2010:WorkflowViewState.IdRef="If_1">
+    <ui:FileExistsX DisplayName="File Exists" Exists="[file_ok]" sap:VirtualizedContainerService.HintSize="940,134" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[Path.Combine(메일트리거규칙파일, &quot;mail_trigger.xlsx&quot;)]" />
+    <If Condition="[Not file_ok]" sap:VirtualizedContainerService.HintSize="940,629" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence sap:VirtualizedContainerService.HintSize="476,439" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <sap:WorkflowViewStateService.ViewState>
@@ -129,15 +133,16 @@
         </Sequence>
       </If.Else>
     </If>
-    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="984,322" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" WorkbookPath="[Path.Combine(메일트리거규칙파일, &quot;mail_trigger.xlsx&quot;)]">
+    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="940,575" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" WorkbookPath="[Path.Combine(메일트리거규칙파일, &quot;mail_trigger.xlsx&quot;)]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="실행" sap:VirtualizedContainerService.HintSize="376,213" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Sequence DisplayName="실행" sap:VirtualizedContainerService.HintSize="376,466" sap2010:WorkflowViewState.IdRef="Sequence_8">
             <Sequence.Variables>
               <Variable x:TypeArguments="scg:List(x:String)" Name="all_sheets" />
+              <Variable x:TypeArguments="x:String" Name="dt_str" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -152,157 +157,188 @@
                 </InArgument>
               </ui:ExcelReadRange.Range>
             </ui:ExcelReadRange>
+            <ui:OutputDataTable DataTable="[mail_rule_dt]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,80" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[dt_str]" />
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[dt_str]" />
           </Sequence>
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="984,2197" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+    <ui:InterruptibleDoWhile Condition="True" DisplayName="Do While" sap:VirtualizedContainerService.HintSize="940,2837" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="948,2030" sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="904,2670" sap2010:WorkflowViewState.IdRef="Sequence_7">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <uma:Office365ApplicationScope ApplicationId="{x:Null}" ApplicationSecret="{x:Null}" CertificateAsBase64="{x:Null}" CertificatePassword="{x:Null}" ContinueOnError="{x:Null}" Password="{x:Null}" SecureApplicationSecret="{x:Null}" SecurePassword="{x:Null}" Tenant="{x:Null}" Timeout="{x:Null}" Username="{x:Null}" AuthenticationType="InteractiveToken" DisplayName="Microsoft Office 365 Scope" Environment="Global" sap:VirtualizedContainerService.HintSize="906,1938" sap2010:WorkflowViewState.IdRef="Office365ApplicationScope_1" OAuthApplication="UiPath" Services="Mail">
-            <uma:Office365ApplicationScope.Body>
-              <ActivityAction x:TypeArguments="mg:GraphServiceClient">
+          <umab:ExchangeApplicationCard ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" SharedMailbox="{x:Null}" Account="hyungsoo.kim@uipath.com" DisplayName="Use Outlook 365" EmailAddress="hyungsoo.kim@uipath.com" sap:VirtualizedContainerService.HintSize="862,2516" sap2010:WorkflowViewState.IdRef="ExchangeApplicationCard_1" UseConnectionService="False">
+            <umab:ExchangeApplicationCard.ApplicationId>
+              <InArgument x:TypeArguments="x:String">
+                <Literal x:TypeArguments="x:String" Value="" />
+              </InArgument>
+            </umab:ExchangeApplicationCard.ApplicationId>
+            <umab:ExchangeApplicationCard.Body>
+              <ActivityAction x:TypeArguments="um:IMailQuickHandle">
                 <ActivityAction.Argument>
-                  <DelegateInArgument x:TypeArguments="mg:GraphServiceClient" Name="ParentScope" />
+                  <DelegateInArgument x:TypeArguments="um:IMailQuickHandle" Name="Exchange" />
                 </ActivityAction.Argument>
-                <Sequence sap:VirtualizedContainerService.HintSize="872,1852" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                <Sequence DisplayName="실행" sap:VirtualizedContainerService.HintSize="828,2288" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="scg:IEnumerable(snm:MailMessage)" Name="mails" />
+                    <Variable x:TypeArguments="x:String" Name="download_file_folder" />
+                  </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="실행" sap:VirtualizedContainerService.HintSize="830,1760" sap2010:WorkflowViewState.IdRef="Sequence_2">
-                    <Sequence.Variables>
-                      <Variable x:TypeArguments="umm:Office365Message[]" Name="mail_list" />
-                    </Sequence.Variables>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <umam:GetMail Account="{x:Null}" Query="{x:Null}" Top="{x:Null}" sap2010:Annotation.AnnotationText="메일 가져오기 &#xD;&#xA;읽지 않은 메일에 대해서만 처리함 " DisplayName="Get Mail" GetAsHTML="False" sap:VirtualizedContainerService.HintSize="788,82" sap2010:WorkflowViewState.IdRef="GetMail_1" MailFolder="받은 편지함" MarkAsRead="False" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Results="[mail_list]">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                    </umam:GetMail>
-                    <ui:ForEach x:TypeArguments="umm:Office365Message" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="788,1546" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[mail_list]">
-                      <ui:ForEach.Body>
-                        <ActivityAction x:TypeArguments="umm:Office365Message">
-                          <ActivityAction.Argument>
-                            <DelegateInArgument x:TypeArguments="umm:Office365Message" Name="mail" />
-                          </ActivityAction.Argument>
-                          <Sequence DisplayName="본문" sap:VirtualizedContainerService.HintSize="752,1422" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="786,100" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[download_file_folder]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.UserProfile), "Downloads")]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                  </ui:MultipleAssign>
+                  <umab:ForEachEmailX MailFilter="{x:Null}" DisplayName="For Each Email" sap:VirtualizedContainerService.HintSize="786,2056" sap2010:WorkflowViewState.IdRef="ForEachEmailX_1" IncludeSubfolders="False" Mails="[Exchange.Folder(&quot;%EB%B0%9B%EC%9D%80%20%ED%8E%B8%EC%A7%80%ED%95%A8&quot;)]" NumberOfEmailsLimit="20" UnreadOnly="True" WithAttachmentsOnly="True">
+                    <umab:ForEachEmailX.Body>
+                      <ActivityAction x:TypeArguments="snm:MailMessage, x:Int32">
+                        <ActivityAction.Argument1>
+                          <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="CurrentMail" />
+                        </ActivityAction.Argument1>
+                        <ActivityAction.Argument2>
+                          <DelegateInArgument x:TypeArguments="x:Int32" Name="CurrentIndex" />
+                        </ActivityAction.Argument2>
+                        <Sequence DisplayName="실행" sap:VirtualizedContainerService.HintSize="752,1798" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="710,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[String.Format(&quot;제목: {0},  보낸사람: {1},  첨부리스트: {2}&quot;,  _ &#xA;CurrentMail.Subject, _&#xA;CurrentMail.From.Address.ToString, _&#xA;String.Join( &quot;, &quot;, CurrentMail.Attachments))]" />
+                          <Sequence DisplayName="메일 규칙에 맞는지 체크 " sap:VirtualizedContainerService.HintSize="710,1573" sap2010:WorkflowViewState.IdRef="Sequence_14">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <Sequence DisplayName="메일 규칙에 맞는지 체크 " sap:VirtualizedContainerService.HintSize="710,1330" sap2010:WorkflowViewState.IdRef="Sequence_14">
-                              <sap:WorkflowViewStateService.ViewState>
-                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                </scg:Dictionary>
-                              </sap:WorkflowViewStateService.ViewState>
-                              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[mail_rule_dt]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="668,1238" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
-                                <ui:ForEachRow.Body>
-                                  <ActivityAction x:TypeArguments="sd:DataRow">
-                                    <ActivityAction.Argument>
-                                      <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-                                    </ActivityAction.Argument>
-                                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="634,1118" sap2010:WorkflowViewState.IdRef="Sequence_12">
-                                      <sap:WorkflowViewStateService.ViewState>
-                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                        </scg:Dictionary>
-                                      </sap:WorkflowViewStateService.ViewState>
-                                      <If Condition="[CurrentRow(&quot;보낸사람&quot;).ToString = mail.From.Address.ToString() AndAlso _&#xD;&#xA;mail.Subject.Contains( CurrentRow(&quot;제목&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="592,1026" sap2010:WorkflowViewState.IdRef="If_5">
-                                        <If.Then>
-                                          <Sequence sap:VirtualizedContainerService.HintSize="556,837" sap2010:WorkflowViewState.IdRef="Sequence_17">
-                                            <sap:WorkflowViewStateService.ViewState>
-                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                              </scg:Dictionary>
-                                            </sap:WorkflowViewStateService.ViewState>
-                                            <If Condition="[Not String.IsNullOrEmpty( CurrentRow(&quot;첨부파일확장자&quot;).ToString) AndAlso _&#xD;&#xA;mail.Attachments.Where( Function(p) CurrentRow(&quot;첨부파일확장자&quot;).ToString.Split(&quot;, &quot;.ToCharArray).Contains( Path.GetExtension(p.Name).ToLower().TrimStart(&quot;.&quot;.ToCharArray()))).Count &gt;= 1]" sap:VirtualizedContainerService.HintSize="514,745" sap2010:WorkflowViewState.IdRef="If_4">
-                                              <If.Then>
-                                                <Sequence sap:VirtualizedContainerService.HintSize="478,556" sap2010:WorkflowViewState.IdRef="Sequence_15">
-                                                  <sap:WorkflowViewStateService.ViewState>
-                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                    </scg:Dictionary>
-                                                  </sap:WorkflowViewStateService.ViewState>
-                                                  <ui:UseForegroundScope WaitForeground="{x:Null}" DisplayName="Use Foreground" sap:VirtualizedContainerService.HintSize="436,464" sap2010:WorkflowViewState.IdRef="UseForegroundScope_1">
-                                                    <ui:UseForegroundScope.Body>
-                                                      <ActivityAction x:TypeArguments="x:Object">
-                                                        <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,386" sap2010:WorkflowViewState.IdRef="Sequence_19">
-                                                          <Sequence.Variables>
-                                                            <Variable x:TypeArguments="scg:IEnumerable(x:String)" Name="attachment_files" />
-                                                          </Sequence.Variables>
-                                                          <sap:WorkflowViewStateService.ViewState>
-                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                            </scg:Dictionary>
-                                                          </sap:WorkflowViewStateService.ViewState>
-                                                          <ui:SaveMailAttachments FolderPath="{x:Null}" Message="{x:Null}" Attachments="[attachment_files]" DisplayName="Save Attachments" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="SaveMailAttachments_1" OverwriteExisting="False" />
-                                                          <ui:InvokeProcess ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Process" sap:VirtualizedContainerService.HintSize="334,167" sap2010:WorkflowViewState.IdRef="InvokeProcess_1" ProcessName="[CurrentRow(&quot;프로세스&quot;).ToString]">
-                                                            <ui:InvokeProcess.Arguments>
-                                                              <InArgument x:TypeArguments="x:String" x:Key="InputFile" />
-                                                            </ui:InvokeProcess.Arguments>
-                                                          </ui:InvokeProcess>
-                                                        </Sequence>
-                                                      </ActivityAction>
-                                                    </ui:UseForegroundScope.Body>
-                                                  </ui:UseForegroundScope>
-                                                </Sequence>
-                                              </If.Then>
-                                              <If.Else>
-                                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_16">
-                                                  <sap:WorkflowViewStateService.ViewState>
-                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                    </scg:Dictionary>
-                                                  </sap:WorkflowViewStateService.ViewState>
-                                                </Sequence>
-                                              </If.Else>
-                                            </If>
-                                          </Sequence>
-                                        </If.Then>
-                                        <If.Else>
-                                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_18">
-                                            <sap:WorkflowViewStateService.ViewState>
-                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                              </scg:Dictionary>
-                                            </sap:WorkflowViewStateService.ViewState>
-                                          </Sequence>
-                                        </If.Else>
-                                      </If>
-                                    </Sequence>
-                                  </ActivityAction>
-                                </ui:ForEachRow.Body>
-                              </ui:ForEachRow>
-                            </Sequence>
+                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[mail_rule_dt]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="668,1481" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                              <ui:ForEachRow.Body>
+                                <ActivityAction x:TypeArguments="sd:DataRow">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="634,1361" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <If Condition="[CurrentRow(&quot;보낸사람&quot;).ToString.Trim = CurrentMail.From.Address.Trim AndAlso _&#xA;CurrentMail.Subject.Contains( CurrentRow(&quot;제목&quot;).ToString.Trim)]" sap:VirtualizedContainerService.HintSize="592,1269" sap2010:WorkflowViewState.IdRef="If_5">
+                                      <If.Then>
+                                        <Sequence sap:VirtualizedContainerService.HintSize="556,1080" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <If Condition="[Not String.IsNullOrEmpty( CurrentRow(&quot;첨부파일확장자&quot;).ToString) AndAlso _&#xA;CurrentMail.Attachments.Where( Function(p) CurrentRow(&quot;첨부파일확장자&quot;).ToString.Split(&quot;, &quot;&quot;&quot;.ToCharArray).Contains( Path.GetExtension(p.Name).ToLower().TrimStart(&quot;.&quot;.ToCharArray()))).Count &gt;= 1]" sap:VirtualizedContainerService.HintSize="514,988" sap2010:WorkflowViewState.IdRef="If_4">
+                                            <If.Then>
+                                              <Sequence sap:VirtualizedContainerService.HintSize="478,799" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                                <Sequence.Variables>
+                                                  <Variable x:TypeArguments="scg:IEnumerable(x:String)" Name="attachment_files" />
+                                                  <Variable x:TypeArguments="s:String[]" Name="file_path_arr" />
+                                                  <Variable x:TypeArguments="scg:IEnumerable(x:String)" Name="attached_files" />
+                                                </Sequence.Variables>
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <umab:SaveMailAttachmentsX Attachments="[attached_files]" DisplayName="Save Email Attachments" ExcludeInlineAttachments="True" FolderPath="[download_file_folder]" sap:VirtualizedContainerService.HintSize="436,230" sap2010:WorkflowViewState.IdRef="SaveMailAttachmentsX_1" Message="[CurrentMail]" OverwriteExisting="False" />
+                                                <ui:UseForegroundScope WaitForeground="{x:Null}" DisplayName="Use Foreground" sap:VirtualizedContainerService.HintSize="436,437" sap2010:WorkflowViewState.IdRef="UseForegroundScope_1">
+                                                  <ui:UseForegroundScope.Body>
+                                                    <ActivityAction x:TypeArguments="x:Object">
+                                                      <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,359" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="s:String[]">[file_path_arr]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="s:String[]">[attached_files.Select( Function(p) Path.Combine(download_file_folder, p.ToString)).Cast(Of String).ToArray]</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                        <ui:InvokeProcess ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Process" EntryPointPath="[IF ( string.IsNullOrEmpty( CurrentRow(&quot;진입점&quot;).ToString) , Nothing, CurrentRow(&quot;진입점&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="334,167" sap2010:WorkflowViewState.IdRef="InvokeProcess_1" ProcessName="[CurrentRow(&quot;프로세스&quot;).ToString]" TargetSession="ProcessDefault">
+                                                          <ui:InvokeProcess.Arguments>
+                                                            <InArgument x:TypeArguments="s:String[]" x:Key="InputFiles">[file_path_arr]</InArgument>
+                                                          </ui:InvokeProcess.Arguments>
+                                                        </ui:InvokeProcess>
+                                                      </Sequence>
+                                                    </ActivityAction>
+                                                  </ui:UseForegroundScope.Body>
+                                                </ui:UseForegroundScope>
+                                              </Sequence>
+                                            </If.Then>
+                                            <If.Else>
+                                              <Sequence sap:VirtualizedContainerService.HintSize="200,84" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </Sequence>
+                                            </If.Else>
+                                          </If>
+                                        </Sequence>
+                                      </If.Then>
+                                      <If.Else>
+                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </Sequence>
+                                      </If.Else>
+                                    </If>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:ForEachRow.Body>
+                            </ui:ForEachRow>
                           </Sequence>
-                        </ActivityAction>
-                      </ui:ForEach.Body>
-                    </ui:ForEach>
-                  </Sequence>
+                        </Sequence>
+                      </ActivityAction>
+                    </umab:ForEachEmailX.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </umab:ForEachEmailX>
                 </Sequence>
               </ActivityAction>
-            </uma:Office365ApplicationScope.Body>
-          </uma:Office365ApplicationScope>
+            </umab:ExchangeApplicationCard.Body>
+            <umab:ExchangeApplicationCard.TenantId>
+              <InArgument x:TypeArguments="x:String">
+                <Literal x:TypeArguments="x:String" Value="" />
+              </InArgument>
+            </umab:ExchangeApplicationCard.TenantId>
+          </umab:ExchangeApplicationCard>
+          <Delay Duration="00:01:00" sap:VirtualizedContainerService.HintSize="862,22" sap2010:WorkflowViewState.IdRef="Delay_1" />
         </Sequence>
       </ui:InterruptibleDoWhile.Body>
-      <ui:InterruptibleDoWhile.Condition>
-        <Literal x:TypeArguments="x:Boolean" Value="True" />
-      </ui:InterruptibleDoWhile.Condition>
     </ui:InterruptibleDoWhile>
   </Sequence>
 </Activity>
